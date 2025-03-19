@@ -13,7 +13,7 @@ const port = process.env.PORT
 app.use(express.json()) // JSON middleware -> extract json data 
 app.use(cookieParser())
 
-app.use("/api",authRoutes)
+app.use("/api/auth",authRoutes)
 // app.get('/',(req,res)=>{
 //     res.send("HELLO WORLD");
 // })

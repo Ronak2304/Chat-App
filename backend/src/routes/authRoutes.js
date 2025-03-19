@@ -3,8 +3,6 @@ import { signup,login,logout, updateProfile, checkAuth } from "../controller/aut
 import { protectRoute } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
-router.use(express.json());
-
 
 router.post("/signup",signup)
 

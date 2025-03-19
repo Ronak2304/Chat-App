@@ -28,7 +28,7 @@ export const protectRoute = async (req,res,next) => {
 
         req.user = user
 
-        next() //  once the authentication is don then only it will pass the access to the next function  
+        next() //  once the authentication is done then only it will pass the access to the next function  
     } catch (error) {
         console.log("Error in authMiddleware: "+ error.message)
         res.status(500).json({
