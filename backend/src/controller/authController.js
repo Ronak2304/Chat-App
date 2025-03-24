@@ -22,7 +22,7 @@ export const signup = async (req,res) => {
                 message:"User Already Exists"
             })
         }
-        const salt = await bcrypt.genSalt();
+        const salt = await bcrypt.genSalt(); // it generates a string with random 10 chars and by default 10 because no number is specified
         const hashedPassword = await bcrypt.hash(password,salt)
         // console.log(hashedPassword)
         
@@ -94,7 +94,7 @@ export const logout = (req,res) => {
     try {
         res.cookies("jwtToken","",{
             maxAge:0
-        })
+        })//jwtToken ko humne ""/empty kardiya and maxAge bhi kardi basically remove kardiya token  
         res.status(200).json({
             message:"Logged Out Successfully"
         })
