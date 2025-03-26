@@ -19,5 +19,5 @@ const messageSchema = new Schema({
     }
 })
 
-const messageModel = model("Message",messageSchema)
-export default messageModel
+const Message = model("Message",messageSchema)
+export default Message

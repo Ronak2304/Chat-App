@@ -1,5 +1,5 @@
 import cloudinary from "../lib/cloudinary.js";
-import messageModel from "../models/messageModel.js";
+import Message from "../models/messageModel.js";
 import User from "../models/userModel.js";
 
 export const sideBarUsers = async(req,res) => {
@@ -19,7 +19,7 @@ export const getMessages = async(req,res) => {
     try {
         const {id} = req.params //receivers id 
         const senderId = req.user._id //senders id who is authenticated and is viewing a chat thus is the url we'll get other person's id
-        const messages = await messageModel.find({
+        const messages = await Message.find({
             $or: [
                 {
                     senderId:senderId,
