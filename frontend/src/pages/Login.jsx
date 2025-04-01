@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/store";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
 
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <div>
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <div>
           <p>
