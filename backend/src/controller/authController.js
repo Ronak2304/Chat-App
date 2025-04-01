@@ -92,7 +92,7 @@ export const login = async (req,res) => {
 
 export const logout = (req,res) => {
     try {
-        res.cookies("jwtToken","",{
+        res.cookie("jwtToken","",{
             maxAge:0
         })//jwtToken ko humne ""/empty kardiya and maxAge bhi kardi basically remove kardiya token  
         res.status(200).json({
