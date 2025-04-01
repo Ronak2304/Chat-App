@@ -14,9 +14,7 @@ const App = () => {
 
     useEffect(() => {
       checkAuth()
-    }, [checkAuth])
-
-    console.log({authUser})
+    },[checkAuth])
 
     if(isCheckingAuth && !authUser){
      return (
@@ -33,30 +31,20 @@ const App = () => {
           },
           {
             path: '/signup',
-            element: <div>
-              <Signup />
-            </div>
+            element: !authUser?<Signup />:<Home/>
           },
           
           {
             path: '/login',
-            element: <div>
-              <Login />
-            </div>
+            element: !authUser?<Login/>:<Home/>
           },
           {
             path: '/settings',
-            element: <div>
-              <Navbar />
-              <Settings />
-            </div>
+            element: <Settings />
           },
           {
             path: '/profile',
-            element: <div>
-              <Navbar />
-              <ProfilePage />
-            </div>
+            element: authUser ? <ProfilePage />:<Login/>
           },
           
         ])

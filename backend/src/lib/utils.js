@@ -5,7 +5,7 @@ const generateToken = (userId,res)=>{
         expiresIn:"7d"
     }) // userId-> payload, secret_key->signature, header->token ka meta data
 
-    res.cookies("jwtToken",token,{
+    res.cookie("jwtToken",token,{
         maxAge: 7*24*60*60*1000,
         httpOnly: true,
         sameSite: "strict",
