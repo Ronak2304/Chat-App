@@ -1,5 +1,7 @@
 import React from 'react'
 import { useAuthStore } from '../store/store'
+import { Link, Navigate, UNSAFE_NavigationContext } from 'react-router-dom';
+import ProfilePage from '../pages/ProfilePage';
 
 const Navbar = () => {
   const {logout,authUser} = useAuthStore()
@@ -9,14 +11,16 @@ const Navbar = () => {
   return (
     <div className='place-content-between flex'>
       <div>
-        Logo
+        <Link to='/'> 
+          Logo
+        </Link>
       </div>
       <div className='flex gap-4 '>
         <div>
           settings
         </div>
         {authUser?<div>
-          Profile
+          <Link to="/profile">Profile</Link>
         </div>:<div></div>}
         {authUser?<div>
           <button onClick={handleLogout}>
