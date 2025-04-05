@@ -16,9 +16,8 @@ const ProfilePage = () => {
       reader.readAsDataURL(file)
 
       reader.onload = async ()=>{
-        const base64Image = reader.result
-        SetselectedImage(base64Image)
-        await updateProfile({newprofilePic:base64Image})
+        SetselectedImage(reader.result)
+        await updateProfile({newprofilePic:reader.result})
       }
     }
     return (

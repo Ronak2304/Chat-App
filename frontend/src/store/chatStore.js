@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axios";
 
-export const useChatStore = create((set)=>({
+export const useChatStore = create((set,get)=>({
     messages:[],
     users:[],
     selectedUser:null,
     isUsersLoading:false,
-    isMessagesLoading:false,
     isSendingMessage:false,
+    isMessagesLoading:false,
     
     getUser: async() => {
         set({isUsersLoading:true})
@@ -38,10 +38,11 @@ export const useChatStore = create((set)=>({
     },
 
     sendMessages: async(id,data)=>{
+        const {messages} = get()
         set({isSendingMessage:true})
         try {
-            const res = await axiosInstance.post(`/messages/${id}`,data)
-                     
+            const res = await  axiosInstance.post(`/messages/send/${id}`,data)
+            set({messages:[...messages,res.data]})
         } catch (error) {
             console.log("Error in sendmessages "+error.message)
         }finally{
