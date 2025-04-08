@@ -1,17 +1,28 @@
 // Zustand is used to manage global states 
 import {create} from 'zustand'
 import axiosInstance from '../lib/axios'
+import {io} from 'socket.io-client'
 
-export const useAuthStore = create((set)=>({
+export const useAuthStore = create((set,get)=>({
     authUser:null, //Stores the data of the authenticated user
     isSigningUp:false, // Loader function for signing up
     isLoggingIn:false, // Loader function for logging in
     isUpdatingProfile:false, // Loader function for updating profile
     isCheckingAuth:true,  // Loader function for authUser
+    socket:null,
+    onlineUsers: [],
+
+    connectSocket: async () => {
+        const socket = io('http://localhost:3000/')
+        socket.connect()
+        set({socket:socket})
+    },
+    disconnectSocket: async () => {},
     checkAuth: async () => {
         try {
             const res = await axiosInstance('/auth/check')
             set({authUser:res.data})
+            get().connectSocket()
         } catch (error) {
             console.log("Error in checkAuth "+error.message)
             set({authUser:null})
@@ -25,6 +36,7 @@ export const useAuthStore = create((set)=>({
             const res = await axiosInstance.post('/auth/signup',data)
             set({authUser:res.data})
             console.log("successfully created user "+res.data)
+            get().connectSocket() 
         } catch (error) {
             console.log("Error in signup "+error.message)
             set({isSigningUp:false})
@@ -37,6 +49,7 @@ export const useAuthStore = create((set)=>({
             const res = await axiosInstance.get('/auth/logout')
             set({authUser:null})
             console.log(res.message)
+            get().disconnectSocket()
         } catch (error) {
             console.log("Error in logout "+error.message)
         }
@@ -49,6 +62,7 @@ export const useAuthStore = create((set)=>({
                 console.log("Successfully logged in "+res.data)
                 set({authUser:res.data})
             }
+            get().connectSocket() 
             
         } catch (error) {
             console.log("Error in Login "+error.message)
@@ -69,7 +83,6 @@ export const useAuthStore = create((set)=>({
             set({isUpdatingProfile:false})
         }
     }
-
 })) 
 /*
     initial state of the user 

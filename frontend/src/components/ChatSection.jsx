@@ -63,9 +63,11 @@ const ChatSection = () => {
                             className={`chat ${message.senderId===selectedUser._id?"chat-start":"chat-end"}`}
                         >
                             <div className='chat-bubble'>
-                                {/* {
-                                    message.imageMessage && <p>{message.textMessage}</p>
-                                } */}
+                                {
+                                    message.imageMessage && <div>
+                                        <img src={message.imageMessage} />
+                                    </div>
+                                }
                                 {
                                     message.textMessage && <p>{message.textMessage}</p>
                                 }
