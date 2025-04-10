@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useChatStore } from '../store/chatStore'
-import { Camera, Cross } from 'lucide-react'
+import { Camera} from 'lucide-react'
 
 const ChatSection = () => {
 
     const {getMessages,selectedUser,isMessagesLoading,sendMessages,messages,isSendingMessage} = useChatStore()
     const [textInput, settextInput] = useState("")
     const [imageInput, setimageInput] = useState(null)
+    const messageRef = useRef(null)
     useEffect(() => {
       getMessages(selectedUser._id)
-      console.log(messages)
     }, [selectedUser,getMessages])
+
+    useEffect(() => {
+            messageRef.current?.scrollIntoView({behavior:"smooth"})
+    }, [messages])
+    
     async function handlesubmit (e) {
         e.preventDefault()
         if(!textInput.trim() && !imageInput){
@@ -27,23 +32,27 @@ const ChatSection = () => {
             console.log("Failed to send message "+error.message)
         }
     }
+
+
     function handleRemoveImage() {
         setimageInput('')
 
     }
     function handleImageUpload(e) {
-        const file = e.target.files[0]
+        const file = e.target.files[0] // selects the first file selected by user
         if(!file.type.startsWith('image/')){
             console.log("Kindly insert an image")
             return 
         }
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            setimageInput(reader.result)
+        const reader = new FileReader() // initializing an inbuilt api to convert the image to base64 format string
+        reader.readAsDataURL(file) // converting the image to base64 format
+        reader.onload = () => {   // onload works like if the image conversion is completed then it will start to execute
+            setimageInput(reader.result) // this just sets the image for he preview
         }
-        reader.readAsDataURL(file)
     }
+
+    console.log(messages)
     return (
         <div>
             {/* Selected user info */}
@@ -61,6 +70,7 @@ const ChatSection = () => {
                         <div 
                             key={message._id} 
                             className={`chat ${message.senderId===selectedUser._id?"chat-start":"chat-end"}`}
+                            ref={messageRef}
                         >
                             <div className='chat-bubble'>
                                 {

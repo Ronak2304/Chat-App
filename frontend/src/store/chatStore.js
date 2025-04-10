@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axios";
+import { useAuthStore } from "./store";
 
 export const useChatStore = create((set,get)=>({
     messages:[],
@@ -26,6 +27,17 @@ export const useChatStore = create((set,get)=>({
         try {
             const res = await axiosInstance.get(`/messages/${id}`)
             set({messages:res.data})
+
+            const socket = useAuthStore.getState().socket
+
+            socket.off("newMessage");
+
+            socket.on("newMessage",(newMessage)=>{
+                set({
+                    messages: [...get().messages,newMessage]
+                })
+            })
+
         } catch (error) {
             console.log("Error in message Loading "+error.message)
         }finally{

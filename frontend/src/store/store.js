@@ -13,11 +13,29 @@ export const useAuthStore = create((set,get)=>({
     onlineUsers: [],
 
     connectSocket: async () => {
-        const socket = io('http://localhost:3000/')
+        const {authUser} = get()
+
+        if(!authUser || get().socket?.connected){ //socket? => implies that it will first check if socket is not null or undefined then only it will check for the next condition that is connected 
+            return 
+        }
+        const socket = io('http://localhost:3000',{
+            query:{
+                userId:authUser._id
+            }
+        })
         socket.connect()
         set({socket:socket})
+        
+        socket.on("getOnlineUsers",(Ids)=>{
+            set({onlineUsers:Ids})
+        })
+           
     },
-    disconnectSocket: async () => {},
+    disconnectSocket: async () => {
+        if(get().socket?.connected){
+            get().socket?.disconnect()
+        }
+    },
     checkAuth: async () => {
         try {
             const res = await axiosInstance('/auth/check')
