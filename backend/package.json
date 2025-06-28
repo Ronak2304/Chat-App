@@ -4,8 +4,7 @@
   "description": "This is for the backend of my chat-app",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
   "author": "Ronak Nangia",
   "license": "ISC",
