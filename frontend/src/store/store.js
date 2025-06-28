@@ -18,7 +18,7 @@ export const useAuthStore = create((set,get)=>({
         if(!authUser || get().socket?.connected){ //socket? => implies that it will first check if socket is not null or undefined then only it will check for the next condition that is connected 
             return 
         }
-        const socket = io('http://localhost:3000',{
+        const socket = io('https://chat-app-ifpy.onrender.com/',{
             query:{
                 userId:authUser._id
             }
