@@ -4,7 +4,8 @@
   "description": "This is for the backend of my chat-app",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "author": "Ronak Nangia",
   "license": "ISC",
