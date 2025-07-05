@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { useChatStore } from "../store/chatStore";
 import ShowUsers from "../components/ShowUsers";
 import { Loader } from "lucide-react";
-import ChatSection from "../components/chatSection";
+import ChatSection from "../components/ChatSection";
 import PreSelection from "../components/PreSelection";
 
 const Home = () => {
