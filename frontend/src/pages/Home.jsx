@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import { useChatStore } from "../store/chatStore";
-import ShowUsers from "../components/Showusers";
+import ShowUsers from "../components/ShowUsers";
 import { Loader } from "lucide-react";
 import ChatSection from "../components/chatSection";
 import PreSelection from "../components/PreSelection";
