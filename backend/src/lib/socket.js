@@ -8,7 +8,10 @@ const server = http.createServer(app) // creates a server using inbuilt module o
 
 const io = new Server(server,{
     cors: { // cors: cross origin resource sharing
-        origin: 'http://localhost:5173'
+        origin:[ 
+        'http://localhost:5173',
+        'https://chat-app-1-zi9w.onrender.com'
+        ],
     } 
 })
 
